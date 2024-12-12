@@ -3,8 +3,9 @@
 import Link from 'next/link'
 import React from 'react'
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
-export default function NavbarItem({title, param}) {
+function Search({title, param}) {
   const searchParams = useSearchParams();
   const genre = searchParams.get('genre');
   return (
@@ -13,5 +14,14 @@ export default function NavbarItem({title, param}) {
         {title}
       </Link>
     </div>
+  )
+}
+
+export default function NavbarItem({title, param}) {
+  return (
+    // You could have a loading skeleton as the `fallback` too
+    <Suspense>
+      <Search title={title} param={param} />
+    </Suspense>
   )
 }
